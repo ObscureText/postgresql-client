@@ -3,9 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PostgreSQL</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./loader.css" />
+    <link rel="stylesheet" href="./toast.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./script.js"></script>
+    <script src="./utils.js"></script>
+    <title>ToDo</title>
   </head>
   <body>
-    Hello World
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+    </div>
+    <div class="toast-container" id="toast-container">!</div>
+    <div class="center-container">
+      <h2>ToDo</h2>
+      <div class="items" id="items-container">
+        <!-- <div class="task-div">
+          <input type="checkbox" class="checkbox" />
+          <div class="task-content">do this and this</div>
+          <div class="added-date">12/12/12</div>
+          <img src="./delete.png" alt="delete button" class="delete-button" />
+        </div> -->
+      </div>
+      <div class="input-form">
+        <input type="text" class="text-box" id="text-box" />
+        <button class="add-button" onclick="addTask()">ADD</button>
+      </div>
+    </div>
   </body>
 </html>

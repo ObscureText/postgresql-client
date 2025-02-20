@@ -1,0 +1,30 @@
+.loader {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-color: #494c4e3b;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-right: 5px solid #ffffff00;
+  border-left: 5px solid #ffffff00;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
