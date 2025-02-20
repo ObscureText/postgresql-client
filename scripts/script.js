@@ -2,8 +2,9 @@ const getTaskNode = ({ id, task, created_at, finished_at }) => {
   const checkbox = createHtmlElement("input", "checkbox");
   checkbox.type = "checkbox";
   checkbox.checked = !!finished_at;
-  checkbox.addEventListener("click", () =>
-    markTaskStatus(checkbox.checked, id)
+  checkbox.addEventListener(
+    "click",
+    () => markTaskStatus(checkbox.checked, id),
   );
 
   const taskContent = createHtmlElement("div", "task-content");
@@ -13,7 +14,7 @@ const getTaskNode = ({ id, task, created_at, finished_at }) => {
   addedDate.innerHTML = formatTime(created_at);
 
   const deleteButton = createHtmlElement("img", "delete-button");
-  deleteButton.src = "./delete.png";
+  deleteButton.src = "./assets/delete.png";
   deleteButton.addEventListener("click", () => deleteTask(id, deleteButton));
 
   const taskDiv = createHtmlElement("div", "task-div");
@@ -25,7 +26,7 @@ const getTaskNode = ({ id, task, created_at, finished_at }) => {
 const getTasks = async () => {
   try {
     const resp = await axios.get(
-      "https://postgresql-server-mx5e.onrender.com/get-tasks"
+      "https://postgresql-server-mx5e.onrender.com/get-tasks",
     );
     return resp.data;
   } catch (err) {
@@ -40,7 +41,7 @@ const getTasks = async () => {
 };
 
 const putTasksToDisplay = async () => {
-  await delay(0);
+  await delay(400);
   const tasks = await getTasks();
   const itemsContainer = document.getElementById("items-container");
   itemsContainer.append(...tasks.map(getTaskNode));
@@ -61,7 +62,7 @@ const addTask = async () => {
         "https://postgresql-server-mx5e.onrender.com/add-task",
         {
           task: task.value,
-        }
+        },
       );
 
       const itemsContainer = document.getElementById("items-container");
@@ -86,7 +87,7 @@ const deleteTask = async (id, currentNode) => {
     await delay(500);
     await axios.post(
       "https://postgresql-server-mx5e.onrender.com/delete-task",
-      { id }
+      { id },
     );
     currentNode.parentNode.remove();
     showToast("Task deleted");
@@ -108,7 +109,7 @@ const markTaskStatus = async (status, id) => {
       {
         id,
         status,
-      }
+      },
     );
 
     showToast("Task status updated");
