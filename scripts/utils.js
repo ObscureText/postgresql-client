@@ -16,11 +16,7 @@ const createHtmlElement = (element, className) => {
   return node;
 };
 
-const delay = (duration) => {
-  return new Promise((r) => {
-    setTimeout(r, duration);
-  });
-};
+const delay = (duration) => new Promise((r) => setTimeout(r, duration));
 
 const showToast = (message, type) => {
   const toastContainer = document.getElementById("toast-container");

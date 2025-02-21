@@ -2,10 +2,9 @@ const getTaskNode = ({ id, task, created_at, finished_at }) => {
   const checkbox = createHtmlElement("input", "checkbox");
   checkbox.type = "checkbox";
   checkbox.checked = !!finished_at;
-  checkbox.addEventListener(
-    "click",
-    () => markTaskStatus(checkbox.checked, id),
-  );
+  checkbox.addEventListener("click", () => {
+    markTaskStatus(checkbox.checked, id);
+  });
 
   const taskContent = createHtmlElement("div", "task-content");
   taskContent.innerHTML = task;
@@ -26,17 +25,13 @@ const getTaskNode = ({ id, task, created_at, finished_at }) => {
 const getTasks = async () => {
   try {
     const resp = await axios.get(
-      "https://postgresql-server-mx5e.onrender.com/get-tasks",
+      "https://postgresql-server-mx5e.onrender.com/get-tasks"
     );
     return resp.data;
   } catch (err) {
     showToast("Error occured", "error");
     console.error(err);
-    return [
-      { task: "-----", finished_at: null },
-      { task: "-----", finished_at: null },
-      { task: "-----", finished_at: null },
-    ];
+    return Array(3).fill({ task: "-----", finished_at: null });
   }
 };
 
@@ -60,9 +55,7 @@ const addTask = async () => {
       await delay(500);
       const resp = await axios.post(
         "https://postgresql-server-mx5e.onrender.com/add-task",
-        {
-          task: task.value,
-        },
+        { task: task.value.trim() }
       );
 
       const itemsContainer = document.getElementById("items-container");
@@ -87,8 +80,9 @@ const deleteTask = async (id, currentNode) => {
     await delay(500);
     await axios.post(
       "https://postgresql-server-mx5e.onrender.com/delete-task",
-      { id },
+      { id }
     );
+
     currentNode.parentNode.remove();
     showToast("Task deleted");
   } catch (error) {
@@ -106,10 +100,7 @@ const markTaskStatus = async (status, id) => {
 
     await axios.post(
       "https://postgresql-server-mx5e.onrender.com/update-task-status",
-      {
-        id,
-        status,
-      },
+      { id, status }
     );
 
     showToast("Task status updated");
